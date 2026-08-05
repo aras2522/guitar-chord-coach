@@ -1,0 +1,21 @@
+# Ignore local/venv/heavy artifacts for smaller deploy images
+.venv/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.git/
+.gitignore
+.DS_Store
+*.egg-info/
+dist/
+build/
+data/uploads/
+data/clips/
+*.mp3
+*.mp4
+*.webm
+.cursor/
+agent-transcripts/
+uv.lock

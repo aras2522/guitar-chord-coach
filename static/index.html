@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Guitar Chord Coach — lyrics chart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Outfit:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/style.css?v=6" />
+  </head>
+  <body>
+    <div class="atmosphere" aria-hidden="true"></div>
+    <main class="shell">
+      <header class="brand">
+        <p class="logo">Guitar Chord Coach</p>
+        <p class="tagline">Chords above the lyrics — like a real guitar chart.</p>
+      </header>
+
+      <section class="hero-panel" id="intake">
+        <div class="actions">
+          <label class="btn primary file-btn">
+            Upload MP3 / MP4
+            <input id="fileInput" type="file" accept="audio/*,video/mp4,video/webm,.mp3,.wav,.m4a,.mp4" hidden />
+          </label>
+          <button type="button" class="btn ghost" id="demoBtn">Try demo progression</button>
+        </div>
+        <label class="isolate-toggle" id="isolateRow">
+          <input type="checkbox" id="isolateToggle" />
+          <span>Isolate guitar (remove vocals, drums &amp; other instruments)</span>
+        </label>
+        <div class="song-meta-fields">
+          <label>
+            <span class="lyrics-label">Song title</span>
+            <input id="titleInput" type="text" placeholder="e.g. Free Bird" />
+          </label>
+          <label>
+            <span class="lyrics-label">Artist</span>
+            <input id="artistInput" type="text" placeholder="e.g. Lynyrd Skynyrd" />
+          </label>
+        </div>
+        <label class="lyrics-block">
+          <span class="lyrics-label">Paste lyrics (optional override)</span>
+          <textarea
+            id="lyricsInput"
+            rows="5"
+            placeholder="Leave blank — a lyrics agent will look up the real lyrics (or transcribe if needed)."
+          ></textarea>
+        </label>
+        <p class="hint">
+          The <strong>lyrics agent</strong> looks up correct lyrics from a catalog (using title/artist or filename),
+          then places <strong>chords above the words</strong>. Paste lyrics only to override.
+        </p>
+        <p class="status" id="status" hidden></p>
+      </section>
+
+      <section class="workspace" id="workspace" hidden>
+        <div class="sheet-header">
+          <p class="mini-label">Now</p>
+          <h1 id="currentChord">—</h1>
+          <p class="sub" id="songMeta"></p>
+          <audio id="player" controls></audio>
+        </div>
+
+        <div class="sheet-block">
+          <h2 class="sheet-heading">Chords used</h2>
+          <div class="chord-board" id="chordBoard" aria-label="All chords in this song"></div>
+        </div>
+
+        <div class="sheet-block">
+          <h2 class="sheet-heading">Lyrics</h2>
+          <div class="song-chart" id="songChart" aria-label="Chords above lyrics"></div>
+        </div>
+
+        <p class="tip" id="tip"></p>
+      </section>
+    </main>
+    <script src="/static/app.js?v=6"></script>
+  </body>
+</html>

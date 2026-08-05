@@ -1,0 +1,38 @@
+# Lighter image for free hosts (Render Free = 512MB RAM).
+# No Demucs / Whisper / full PyTorch — chords + LRCLIB lyrics still work.
+FROM python:3.12-slim-bookworm
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PORT=10000 \
+    LITE_MODE=1
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ffmpeg \
+    libsndfile1 \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY pyproject.toml README.md ./
+COPY app ./app
+COPY static ./static
+COPY scripts ./scripts
+
+RUN pip install --upgrade pip \
+    && pip install \
+      "fastapi>=0.139.0" \
+      "uvicorn[standard]>=0.51.0" \
+      "python-multipart>=0.0.32" \
+      "numpy>=2.0.0" \
+      "librosa>=0.11.0" \
+      "soundfile>=0.14.0" \
+      "imageio-ffmpeg>=0.6.0" \
+      "httpx>=0.28.0" \
+      "scipy>=1.11.0"
+
+RUN python scripts/generate_demo.py && mkdir -p data/uploads
+
+EXPOSE 10000
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-10000}"]

@@ -1,0 +1,12 @@
+# Exported from Render blueprint-style settings (manual create is fine too)
+services:
+  - type: web
+    name: guitar-chord-coach
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile.lite
+    dockerContext: .
+    healthCheckPath: /api/health
+    envVars:
+      - key: LITE_MODE
+        value: "1"
